@@ -1,12 +1,8 @@
 function solution(n) {
     
-    let answer=0;
-    
-    for(let i=1; i<=n;i++){
 
-        if(!(i&1)){ 
-            answer+=i
-        }
-    }
-    return answer;
+    const half=Math.floor(n/2);
+    
+   
+    return half*(half+1);
 }
