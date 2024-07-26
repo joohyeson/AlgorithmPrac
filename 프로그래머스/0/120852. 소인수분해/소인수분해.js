@@ -1,10 +1,14 @@
 function solution(n) {
     var answer = [];
-    
-    for(let i=2; i<=n; i++){
-        if((n%i)===0&&answer.findIndex((num)=>i%num===0)===-1){
+    let i=2
+    while(n>=i){
+         if((n%i)===0){
             answer.push(i)
+            n=Math.round(n/i)
+        }else{
+            i++
         }
     }
-    return answer;
+    
+    return [...new Set(answer)]
 }
