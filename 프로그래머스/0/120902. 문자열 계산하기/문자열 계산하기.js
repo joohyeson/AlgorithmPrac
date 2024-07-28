@@ -1,21 +1,13 @@
 function solution(my_string) {
     let numStack=[];
-    let itrStack=[];
+    let itr=1
     
     my_string.split(" ").forEach((s)=>{
-        if(s==="+"||s==="-"){
-            itrStack.push(s)
+        if(s==="-"||s=="+"){
+            itr=s==="-"? -1:1
         }else{
-            numStack.push(Number(s))
-        }
-        
-        if(itrStack.length>0&&numStack.length>=2){
-            const itr=itrStack.pop();
-            const num2=numStack.pop();
-            const num1=numStack.pop();
-            
-            numStack.push(itr==='-'?num1-num2: num1+num2)
+            numStack.push(Number(s*itr))
         }
     })
-    return numStack[0];
+    return numStack.reduce((acc, cur)=> acc+cur,0);
 }
