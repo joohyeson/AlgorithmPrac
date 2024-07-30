@@ -1,7 +1,6 @@
 function solution(dots) {
-    var arr = [];
-    // 1,4 3,4 1,2 3,2
-    const [x1,x2,y1,y2]=dots.sort((a,b)=>a[0]-b[0])
-    console.log(x1, x2, y1, y2)
-    return (x1[0]-y1[0])*(x1[1]-x2[1]);
+    const x=[...new Set(dots.map((dot)=> dot[0]))]
+    const y=[...new Set(dots.map((dot)=> dot[1]))]
+
+    return Math.abs(x[0]-x[1])*Math.abs(y[0]-y[1]);
 }
