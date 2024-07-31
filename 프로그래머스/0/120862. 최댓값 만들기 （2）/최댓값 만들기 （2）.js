@@ -1,10 +1,4 @@
 function solution(numbers) {
-    let max=-100000000
-    
-    for(let i=0; i<numbers.length-1; i++){
-        for(let j=i+1; j<numbers.length; j++){
-            max=Math.max(max, numbers[i]*numbers[j])
-        }
-    }
-    return max;
+    const arr=numbers.sort((a,b)=> b-a)
+    return Math.max(arr[0]*arr[1], arr[arr.length-1]*arr[arr.length-2]);
 }
