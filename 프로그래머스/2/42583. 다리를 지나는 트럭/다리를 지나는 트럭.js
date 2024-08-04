@@ -17,11 +17,8 @@ function solution(bridge_length, weight, truck_weights) {
             onb.push(target);
         }
         
-            //console.log(arr, onb, answer)
     }
     
-    console.log(onb, answer)
-
     
     let max=0;
     for(let i of onb){
