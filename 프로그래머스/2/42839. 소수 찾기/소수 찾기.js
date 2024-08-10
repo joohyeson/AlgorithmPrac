@@ -37,8 +37,5 @@ function solution(numbers) {
         }
     })
     
-    console.log(a, count)
-    
-   
     return  a.length-count;
 }
