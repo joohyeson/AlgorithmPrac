@@ -1,86 +1,39 @@
-class MinHeap {
-    constructor() {
-        this.heap = [];
+function solution(scoville, K) {
+    let s=scoville.sort((a,b)=> a-b);
+    let count=0;
+    let now=0;
+    
+    if(s[0]>=K){
+        return 0;
     }
+    
+    while(s.length>2){
+        count++;
 
-    size() {
-        return this.heap.length;
-    }
+        const sortArr=[s.shift(), s.shift(), s.shift()].sort((a,b)=> a-b);
+                
+        const now=sortArr.shift()+sortArr.shift()*2;
+        sortArr.unshift(now);
 
-    swap(idx1, idx2){
-        [this.heap[idx1], this.heap[idx2]] = [this.heap[idx2], this.heap[idx1]];
-        return this.heap;
-    }
-
-    getParentIdx(childIdx){
-        return Math.floor((childIdx-1) / 2);
-    }
-
-    getLeftChildIdx(parentIdx){
-        return parentIdx*2 + 1;
-    }
-
-    getRightChildIdx(parentIdx){
-        return parentIdx*2 + 2;
-    }
-
-    heappop(){
-        const heapSize = this.size();
-        if (!heapSize) return null;
-        if (heapSize === 1) return this.heap.pop();
-
-        const value = this.heap[0];
-        this.heap[0] = this.heap.pop();
-        this.bubbledown();
-        return value;
-    }
-
-    heappush(value){
-        this.heap.push(value);
-        this.bubbleup();
-
-        return this.heap;
-    }
-
-    bubbleup() {
-        let child = this.size()-1;
-        let parent = this.getParentIdx(child);
-
-        while(this.heap[child] < this.heap[parent]){
-            this.swap(child, parent);
-            child = parent;
-            parent = this.getParentIdx(parent);
+        if(now>=K){
+            return count;
+        }else{
+            sortArr.forEach(((sort)=> s.unshift(sort)))
         }
     }
-
-    bubbledown() {
-        let parent = 0;
-        let leftChild = this.getLeftChildIdx(parent);
-        let rightChild = this.getRightChildIdx(parent);
-
-        while((leftChild <= this.size()-1 && this.heap[leftChild] < this.heap[parent]) || (rightChild <= this.size()-1 && this.heap[rightChild] < this.heap[parent])){
-
-            if (rightChild <= this.size()-1 && this.heap[leftChild] > this.heap[rightChild]){
-                this.swap(parent, rightChild);
-                parent = rightChild;
-            }else {
-                this.swap(parent, leftChild);
-                parent = leftChild;
-            }
-            leftChild = this.getLeftChildIdx(parent);
-            rightChild = this.getRightChildIdx(parent);
-        }     
+    
+    if(s.length===2){
+        if((s[0]+s[1]*2)>=K){
+            return count+1;
+        }
     }
-}
-
-function solution(scoville, K) {
-    let count = 0;
-    const heap = new MinHeap();
-    scoville.forEach(el => heap.heappush(el));
-
-    while(heap.heap[0] < K && heap.size() > 1){
-        count++;
-        heap.heappush(heap.heappop() + heap.heappop()*2);
+    
+    if(s.length===1){
+        if(s[0]>=K){
+            return count+1;
+        }
     }
-    return heap.heap[0] >= K ? count : -1;
+    
+    return -1;
+    
 }
